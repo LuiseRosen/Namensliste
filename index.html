@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namensliste</title>
+
+    <script>
+        let names = ['David', 'Goliath', 'Rebecca', 'Ruth'];
+
+        function addNames() {
+            let list = document.getElementById('list');
+            list.innerHTML = ''; // leert den Inhalt von list, damit wir ihn nicht mehrfach einfügen, wenn wir addCurrentName() ausführen
+
+            for (let i = 0; i < names.length; i++) {
+                let li = document.createElement('li'); // erstellt ein <li> Element
+                li.innerHTML = names[i] + ' <a onclick="deleteItem(' + i + ')">X</a>'; // fügt den Inhalt aus dem Array names an der Stelle i in das <Li> Element ein + den link X zum Entfernen
+                list.appendChild(li); // fügt den Inhalt der Variablen li in den Inhalt der Variablen list
+            }
+        }
+
+        function addCurrentName() {
+            if (names.length <= 7) {
+                let currentName = document.getElementById('new-name').value;
+                names.push(currentName);
+                addNames(); // aktualisiert die Liste mitsamt dem neu hinzugefügten Namen
+                document.getElementById('new-name').value = '';
+            }
+            else {
+                alert('zu viele Leute!');
+            }
+        }
+
+    function deleteItem(i) {
+        names.splice(i, 1); // an der Stelle i wollen wir 1 Element löschen
+        addNames(); // Liste aktualisieren
+    }
+
+    </script>
+</head>
+
+<body onload="addNames()">
+
+    <ul id="list">
+    </ul>
+
+    <input placeholder="Name" type="text" name="name" id="new-name">
+    <button onclick="addCurrentName()">Hinzufügen</button>
+
+</body>
+
+</html>
